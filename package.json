@@ -1,5 +1,5 @@
 {
-  "name": "TodoApp",
+  "name": "Todo-App",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,8 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/checkbox": "^0.5.16",
+    "@react-native-picker/picker": "^2.5.1",
     "react": "18.2.0",
-    "react-native": "0.72.5"
+    "react-native": "0.72.5",
+    "react-native-radio-buttons-group": "^3.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
