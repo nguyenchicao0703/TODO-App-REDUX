@@ -5,11 +5,12 @@ import CheckBox from '@react-native-community/checkbox'
 const Checkbox = ({ text, priority }) => {
     const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
-    let priorityColor = '#FFCCCD'; // Màu mặc định
-    let borderColor = 'red'; // Màu mặc định
-    let textColor = 'white'; // Màu mặc định
-    let textColorPriority = 'white'; // Màu mặc định
-    let textDecorationLine = 'none'; // Kiểu chữ mặc định
+    // Màu mặc định
+    let priorityColor = '#FFCCCD';
+    let borderColor = 'red';
+    let textColor = 'white';
+    let textColorPriority = 'white';
+    let textDecorationLine = 'none';
 
     // Xác định màu sắc dựa trên giá trị priority
     if (toggleCheckBox) {
