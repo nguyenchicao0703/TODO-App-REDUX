@@ -9,9 +9,23 @@ import { createSelector } from 'reselect'
 
 export const todoListSelector = (state) => state.todoList;
 export const searchTextSelector = (state) => state.filters.search;
+export const statusTextSelector = (state) => state.filters.status;
 
-export const todosRemainingSelector = createSelector(todoListSelector, searchTextSelector, (todoList, searchText) => {
-    return todoList.filter((todo) => {
-        return todo.name.includes(searchText);
+export const todosRemainingSelector = createSelector(
+    todoListSelector,
+    searchTextSelector,
+    statusTextSelector,
+    (todoList, searchText, status) => {
+        return todoList.filter((todo) => {
+            if (status === "All") {
+                return todo.name.includes(searchText);
+            }
+            return (
+                todo.name.includes(searchText) &&
+                (status !== 'All'
+                    && status === 'Completed'
+                    ? todo.completed
+                    : !todo.completed)
+            );
+        });
     });
-});

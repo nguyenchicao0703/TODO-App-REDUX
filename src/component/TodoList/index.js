@@ -28,7 +28,7 @@ const TodoList = () => {
     return (
         <>
             {todoList.map(todo =>
-                <Checkbox key={todo.id} text={todo.name} priority={todo.priority} />
+                <Checkbox key={todo.id} name={todo.name} priority={todo.priority} completed={todo.completed} />
             )}
             <KeyboardAvoidingView style={styles.container} behavior='padding'>
                 <View style={styles.inputView}>

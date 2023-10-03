@@ -2,8 +2,8 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import CheckBox from '@react-native-community/checkbox'
 
-const Checkbox = ({ text, priority }) => {
-    const [toggleCheckBox, setToggleCheckBox] = useState(false);
+const Checkbox = ({ name, priority, completed }) => {
+    const [toggleCheckBox, setToggleCheckBox] = useState(completed);
 
     // Màu mặc định
     let priorityColor = '#FFCCCD';
@@ -44,7 +44,7 @@ const Checkbox = ({ text, priority }) => {
                 onValueChange={(newValue) => setToggleCheckBox(newValue)}
                 tintColors={{ true: 'red', false: '#404040' }} // true: turn on & false: turn off *Android only*
             />
-            <Text style={{ textDecorationLine, color: textColor, fontSize: 17, marginLeft: 5, flex: 1, }}>{text}</Text>
+            <Text style={{ textDecorationLine, color: textColor, fontSize: 17, marginLeft: 5, flex: 1, }}>{name}</Text>
             <View style={[styles.priority, { backgroundColor: priorityColor, borderColor: borderColor }]}>
                 <Text style={{ fontSize: 12, color: textColorPriority }}>{priority}</Text>
             </View>

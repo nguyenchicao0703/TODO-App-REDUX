@@ -2,11 +2,11 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useState, useMemo } from 'react'
 import RadioGroup from 'react-native-radio-buttons-group'
 import { useDispatch } from 'react-redux'
-import { searchFilterChange } from '../../redux/actions'
+import { searchFilterChange, statusFilterChange } from '../../redux/actions'
 
 const Filter = () => {
-    const [selectedId, setSelectedId] = useState();
     const [searchText, setSearchText] = useState('');
+    const [selectedId, setSelectedId] = useState();
 
     const dispatch = useDispatch();
 
@@ -15,21 +15,26 @@ const Filter = () => {
         dispatch(searchFilterChange(text));
     }
 
+    const handleStatusChange = (status) => {
+        setSelectedId(status);
+        dispatch(statusFilterChange(radioButtons[status-1].value));
+    }
+
     const radioButtons = useMemo(() => ([
         {
-            id: '1', // acts as primary key, should be unique and non-empty string
-            label: 'Hight',
-            value: 'hight'
+            id: '1',
+            label: 'All',
+            value: 'All'
         },
         {
             id: '2',
-            label: 'Medium',
-            value: 'medium'
+            label: 'Completed',
+            value: 'Completed'
         },
         {
             id: '3',
-            label: 'Low',
-            value: 'low'
+            label: 'To do',
+            value: 'Todo'
         }
     ]), []);
 
@@ -42,12 +47,12 @@ const Filter = () => {
                 placeholderTextColor={'#AAAAAA'}
                 value={searchText}
                 onChangeText={handleSearchChangeText}
-            />            
+            />
             <Text style={styles.title}>Filter By Status</Text>
             <RadioGroup
                 containerStyle={styles.radioButton}
                 radioButtons={radioButtons}
-                onPress={setSelectedId}
+                onPress={handleStatusChange}
                 selectedId={selectedId}
                 layout='row'
             />
