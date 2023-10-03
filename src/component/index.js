@@ -1,4 +1,5 @@
-import Filters from "./Filters";
+import Filter from "./Filter";
 import Checkbox from "./Checkbox";
+import TodoList from "./TodoList";
 
-export { Filters, Checkbox };
+export { Filter, Checkbox, TodoList };
