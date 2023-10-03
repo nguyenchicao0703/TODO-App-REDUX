@@ -2,17 +2,17 @@ import { StyleSheet, Text, View, TextInput, TouchableHighlight, KeyboardAvoiding
 import React, { useState } from 'react'
 import { Picker } from '@react-native-picker/picker'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTodo } from '../redux/actions'
+import { addTodo } from '../../redux/actions'
 import uuid from 'react-native-uuid'
-import { todoListSelector } from '../redux/selectors'
-import Checkbox from './Checkbox'
+import { todosRemainingSelector } from '../../redux/selectors'
+import Checkbox from '../Checkbox'
 
 const TodoList = () => {
     const [todoName, setTodoName] = useState('');
     const [selectedPriority, setSelectedPriority] = useState('Medium');
 
     const dispatch = useDispatch();
-    const todoList = useSelector(todoListSelector);
+    const todoList = useSelector(todosRemainingSelector);
     
     const handleAddButtonClick = () => {
         dispatch(addTodo({

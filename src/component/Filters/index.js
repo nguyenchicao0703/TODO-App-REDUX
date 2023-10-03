@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useState, useMemo } from 'react'
 import RadioGroup from 'react-native-radio-buttons-group'
 import { useDispatch } from 'react-redux'
-import { searchFilterChange } from '../redux/actions'
+import { searchFilterChange } from '../../redux/actions'
 
 const Filter = () => {
     const [selectedId, setSelectedId] = useState();
