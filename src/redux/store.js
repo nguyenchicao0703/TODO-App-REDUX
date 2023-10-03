@@ -4,6 +4,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 const composeEnhancers = composeWithDevTools();
 
-const store = createStore(rootReducer, composeEnhancers);
+const store = createStore(rootReducer);
 
 export default store;
