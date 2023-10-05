@@ -3,10 +3,11 @@ import React, { useState, useMemo } from 'react'
 import RadioGroup from 'react-native-radio-buttons-group'
 import { useDispatch } from 'react-redux'
 import { searchFilterChange, statusFilterChange } from '../../redux/actions'
+import MultiSelectsPriority from '../MultiSelectsPriority'
 
 const Filter = () => {
     const [searchText, setSearchText] = useState('');
-    const [selectedId, setSelectedId] = useState();
+    const [selectedId, setSelectedId] = useState('1');
 
     const dispatch = useDispatch();
 
@@ -17,25 +18,13 @@ const Filter = () => {
 
     const handleStatusChange = (status) => {
         setSelectedId(status);
-        dispatch(statusFilterChange(radioButtons[status-1].value));
+        dispatch(statusFilterChange(radioButtons[status - 1].value));
     }
 
     const radioButtons = useMemo(() => ([
-        {
-            id: '1',
-            label: 'All',
-            value: 'All'
-        },
-        {
-            id: '2',
-            label: 'Completed',
-            value: 'Completed'
-        },
-        {
-            id: '3',
-            label: 'To do',
-            value: 'Todo'
-        }
+        { id: '1', label: 'All', value: 'All' },
+        { id: '2', label: 'Completed', value: 'Completed' },
+        { id: '3', label: 'To do', value: 'Todo' }
     ]), []);
 
     return (
@@ -57,11 +46,7 @@ const Filter = () => {
                 layout='row'
             />
             <Text style={styles.title}>Filter By Priority</Text>
-            <TextInput
-                style={styles.input}
-                placeholder='Please select'
-                placeholderTextColor={'#AAAAAA'}
-            />
+            <MultiSelectsPriority />
         </View>
     )
 }
@@ -69,14 +54,10 @@ const Filter = () => {
 export default Filter
 
 const styles = StyleSheet.create({
-    radioButton: {
-        marginHorizontal: 10,
-        marginTop: 5
-    },
     title: {
         color: 'black',
         fontSize: 18,
-        marginTop: 20,
+        marginTop: 10,
         fontWeight: '500',
         marginLeft: 20
     },
@@ -89,6 +70,11 @@ const styles = StyleSheet.create({
         marginTop: 5,
         paddingHorizontal: 12,
         borderColor: '#AAAAAA',
-        fontWeight: '400'
-    }
+        fontWeight: '400',
+        height: 50
+    },
+    radioButton: {
+        marginHorizontal: 10,
+        marginTop: 5
+    },
 })

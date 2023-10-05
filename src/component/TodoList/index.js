@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput, TouchableHighlight, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableHighlight, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import { Picker } from '@react-native-picker/picker'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +13,7 @@ const TodoList = () => {
 
     const dispatch = useDispatch();
     const todoList = useSelector(todosRemainingSelector);
-    
+
     const handleAddButtonClick = () => {
         dispatch(addTodo({
             id: uuid.v4(),
@@ -27,12 +27,13 @@ const TodoList = () => {
 
     return (
         <>
-            {todoList.map(todo =>
-                <Checkbox key={todo.id} name={todo.name} priority={todo.priority} completed={todo.completed} />
-            )}
-            <KeyboardAvoidingView style={styles.container} behavior='padding'>
+            <ScrollView>
+                {todoList.map(todo =>
+                    <Checkbox key={todo.id} id={todo.id} name={todo.name} priority={todo.priority} completed={todo.completed} />
+                )}
+            </ScrollView>
                 <View style={styles.inputView}>
-                    <TextInput style={styles.input} value={todoName} onChangeText={(text) => setTodoName(text)} />
+                    <TextInput style={styles.input} value={todoName} onChangeText={(text) => setTodoName(text)} placeholder='Enter to-do' placeholderTextColor={'#AAAAAA'} />
                     <Picker
                         style={styles.picker}
                         selectedValue={selectedPriority}
@@ -48,7 +49,6 @@ const TodoList = () => {
                         <Text style={styles.buttonText}>Add</Text>
                     </TouchableHighlight>
                 </View>
-            </KeyboardAvoidingView>
         </>
     )
 }
@@ -56,15 +56,10 @@ const TodoList = () => {
 export default TodoList
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
     inputView: {
         flexDirection: 'row',
-        marginHorizontal: 20,
-        marginBottom: 20,
         position: 'absolute',
-        bottom: 0
+        bottom: 0,
     },
     input: {
         flex: 3,
@@ -72,7 +67,8 @@ const styles = StyleSheet.create({
         borderColor: '#AAAAAA',
         paddingLeft: 20,
         fontSize: 16,
-        color: 'black'
+        color: 'black',
+        backgroundColor: 'white'
     },
     picker: {
         flex: 2,

@@ -1,52 +1,39 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import CheckBox from '@react-native-community/checkbox'
+import { useDispatch } from 'react-redux'
+import { toggleTodoStatus } from '../redux/actions'
 
-const Checkbox = ({ name, priority, completed }) => {
+const Checkbox = ({ id, name, priority, completed }) => {
     const [toggleCheckBox, setToggleCheckBox] = useState(completed);
 
-    // Màu mặc định
-    let priorityColor = '#FFCCCD';
-    let borderColor = 'red';
-    let textColor = 'white';
-    let textColorPriority = 'white';
-    let textDecorationLine = 'none';
+    const dispatch = useDispatch();
 
-    // Xác định màu sắc dựa trên giá trị priority
-    if (toggleCheckBox) {
-        priorityColor = 'red';
-        borderColor = 'red';
-        textColor = 'red';
-        textDecorationLine = 'line-through';
-    } else if (priority === 'High') {
-        priorityColor = '#FFD1F3';
-        borderColor = '#FA00B7';
-        textColorPriority = '#FA00B7';
-        textColor = '#404040'
-    } else if (priority === 'Medium') {
-        priorityColor = '#C7FCD8';
-        borderColor = 'green';
-        textColorPriority = 'green';
-        textColor = '#404040'
-    } else if (priority === 'Low') {
-        priorityColor = '#544F4F';
-        borderColor = '#544F4F';
-        textColorPriority = 'white'
-        textColor = '#404040'
+    const handleToggleTodoStatus = (newValue) => {
+        setToggleCheckBox(newValue);
+        dispatch(toggleTodoStatus(id));
     }
 
+    const priorityData = {
+        High: { backgroundColor: '#FFD6D7', borderColor: 'red', textPriorityColor: 'red' },
+        Medium: { backgroundColor: '#C7FCD8', borderColor: 'green', textPriorityColor: 'green' },
+        Low: { backgroundColor: '#544F4F', borderColor: '#544F4F', textPriorityColor: 'white' },
+    };
+
+    const { backgroundColor, borderColor, textPriorityColor } = priorityData[priority];
+
     return (
-        <View style={styles.checkbox_view}>
+        <View style={styles.container}>
             <CheckBox
-                style={{ transform: [{ scaleX: 1 }, { scaleY: 1 }] }}
+                style={[styles.checkbox, { opacity: toggleCheckBox ? 0.4 : 1 }]}
                 disabled={false}
                 value={toggleCheckBox}
-                onValueChange={(newValue) => setToggleCheckBox(newValue)}
-                tintColors={{ true: 'red', false: '#404040' }} // true: turn on & false: turn off *Android only*
+                onValueChange={handleToggleTodoStatus}
+                tintColors={{ true: '#404040', false: '#404040' }}
             />
-            <Text style={{ textDecorationLine, color: textColor, fontSize: 17, marginLeft: 5, flex: 1, }}>{name}</Text>
-            <View style={[styles.priority, { backgroundColor: priorityColor, borderColor: borderColor }]}>
-                <Text style={{ fontSize: 12, color: textColorPriority }}>{priority}</Text>
+            <Text style={[styles.text, { textDecorationLine: toggleCheckBox ? 'line-through' : 'none', opacity: toggleCheckBox ? 0.4 : 1 }]}>{name}</Text>
+            <View style={[styles.priority, { backgroundColor, borderColor, opacity: toggleCheckBox ? 0.4 : 1 }]}>
+                <Text style={[styles.priorityText, { color: textPriorityColor, textDecorationLine: toggleCheckBox ? 'line-through' : 'none' }]}>{priority}</Text>
             </View>
         </View>
     )
@@ -55,17 +42,20 @@ const Checkbox = ({ name, priority, completed }) => {
 export default Checkbox
 
 const styles = StyleSheet.create({
-    checkbox_view: {
+    container: {
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: 20,
-        marginTop: 10
+        marginTop: 10,
     },
-    checkbox_text: {
-        color: '#404040',
+    checkbox: {
+        transform: [{ scaleX: 1 }, { scaleY: 1 }],
+    },
+    text: {
         fontSize: 17,
         marginLeft: 5,
         flex: 1,
+        color: 'black'
     },
     priority: {
         width: 65,
@@ -76,5 +66,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
+    },
+    priorityText: {
+        fontSize: 12,
+        justifyContent: 'center'
     },
 })
