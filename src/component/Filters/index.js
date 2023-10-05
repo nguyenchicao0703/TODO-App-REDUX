@@ -41,7 +41,7 @@ const Filter = () => {
             <RadioGroup
                 containerStyle={styles.radioButton}
                 radioButtons={radioButtons}
-                onPress={setSelectedId}
+                onPress={handleStatusChange}
                 selectedId={selectedId}
                 layout='row'
             />
