@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     picker: {
         flex: 2,
-        backgroundColor: 'lightgray'
+        backgroundColor: '#9E9E9E'
     },
     button: {
         flex: 1,

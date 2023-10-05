@@ -22,9 +22,9 @@ const Filter = () => {
     }
 
     const radioButtons = useMemo(() => ([
-        { id: '1', label: 'All', value: 'All' },
-        { id: '2', label: 'Completed', value: 'Completed' },
-        { id: '3', label: 'To do', value: 'Todo' }
+        { id: '1', label: 'All', value: 'All', labelStyle: { color: 'black' } },
+        { id: '2', label: 'Completed', value: 'Completed', labelStyle: { color: 'black' } },
+        { id: '3', label: 'To do', value: 'Todo', labelStyle: { color: 'black' } }
     ]), []);
 
     return (
@@ -41,7 +41,7 @@ const Filter = () => {
             <RadioGroup
                 containerStyle={styles.radioButton}
                 radioButtons={radioButtons}
-                onPress={handleStatusChange}
+                onPress={setSelectedId}
                 selectedId={selectedId}
                 layout='row'
             />
