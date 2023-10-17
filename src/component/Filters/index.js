@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useState, useMemo } from 'react'
 import RadioGroup from 'react-native-radio-buttons-group'
 import { useDispatch } from 'react-redux'
-import { searchFilterChange, statusFilterChange } from '../../redux/actions'
+import { filtersSlice } from './filtersSlice'
 import MultiSelectsPriority from '../MultiSelectsPriority'
 
 const Filter = () => {
@@ -13,12 +13,12 @@ const Filter = () => {
 
     const handleSearchChangeText = (text) => {
         setSearchText(text);
-        dispatch(searchFilterChange(text));
+        dispatch(filtersSlice.actions.searchFilterChange(text));
     }
 
     const handleStatusChange = (status) => {
         setSelectedId(status);
-        dispatch(statusFilterChange(radioButtons[status - 1].value));
+        dispatch(filtersSlice.actions.statusFilterChange(radioButtons[status - 1].value));
     }
 
     const radioButtons = useMemo(() => ([

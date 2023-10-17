@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import CheckBox from '@react-native-community/checkbox'
 import { useDispatch } from 'react-redux'
-import { toggleTodoStatus } from '../redux/actions'
+import { todosSlice } from './TodoList/todosSlice'
 
 const Checkbox = ({ id, name, priority, completed }) => {
     const [toggleCheckBox, setToggleCheckBox] = useState(completed);
@@ -11,7 +11,7 @@ const Checkbox = ({ id, name, priority, completed }) => {
 
     const handleToggleTodoStatus = (newValue) => {
         setToggleCheckBox(newValue);
-        dispatch(toggleTodoStatus(id));
+        dispatch(todosSlice.actions.toggleTodoStatus(id));
     }
 
     const priorityData = {

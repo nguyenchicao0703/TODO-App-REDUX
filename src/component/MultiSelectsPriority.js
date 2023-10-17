@@ -1,8 +1,8 @@
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import MultiSelect from 'react-native-multiple-select'
 import { useDispatch } from 'react-redux'
-import { priorityFilterChange } from '../redux/actions'
+import { filtersSlice } from './Filters/filtersSlice'
 
 const data = [
     { id: '1', name: 'High', value: 'High' },
@@ -23,7 +23,7 @@ const MultiSelectsPriority = () => {
             return selectedItem ? selectedItem.value : null;
         });
 
-        dispatch(priorityFilterChange(selectedValues));
+        dispatch(filtersSlice.actions.priorityFilterChange(selectedValues));
     };
 
     return (

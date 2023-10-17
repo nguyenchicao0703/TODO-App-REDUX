@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.16",
     "@react-native-picker/picker": "^2.5.1",
+    "@reduxjs/toolkit": "^1.9.7",
     "react": "18.2.0",
     "react-native": "0.72.5",
     "react-native-multiple-select": "^0.5.12",

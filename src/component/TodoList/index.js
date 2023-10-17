@@ -2,10 +2,10 @@ import { StyleSheet, Text, View, TextInput, TouchableHighlight, ScrollView } fro
 import React, { useState } from 'react'
 import { Picker } from '@react-native-picker/picker'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTodo } from '../../redux/actions'
 import uuid from 'react-native-uuid'
 import { todosRemainingSelector } from '../../redux/selectors'
 import Checkbox from '../Checkbox'
+import { todosSlice } from './todosSlice'
 
 const TodoList = () => {
     const [todoName, setTodoName] = useState('');
@@ -15,12 +15,13 @@ const TodoList = () => {
     const todoList = useSelector(todosRemainingSelector);
 
     const handleAddButtonClick = () => {
-        dispatch(addTodo({
-            id: uuid.v4(),
-            name: todoName,
-            priority: selectedPriority,
-            completed: false,
-        }));
+        dispatch(
+            todosSlice.actions.addTodo({
+                id: uuid.v4(),
+                name: todoName,
+                priority: selectedPriority,
+                completed: false,
+            }));
         setTodoName('');
         setSelectedPriority('Medium');
     }
@@ -32,23 +33,23 @@ const TodoList = () => {
                     <Checkbox key={todo.id} id={todo.id} name={todo.name} priority={todo.priority} completed={todo.completed} />
                 )}
             </ScrollView>
-                <View style={styles.inputView}>
-                    <TextInput style={styles.input} value={todoName} onChangeText={(text) => setTodoName(text)} placeholder='Enter to-do' placeholderTextColor={'#AAAAAA'} />
-                    <Picker
-                        style={styles.picker}
-                        selectedValue={selectedPriority}
-                        pickerStyleType={styles.picker}
-                        onValueChange={(itemValue) =>
-                            setSelectedPriority(itemValue)
-                        }>
-                        <Picker.Item label="High" value="High" />
-                        <Picker.Item label="Medium" value="Medium" />
-                        <Picker.Item label="Low" value="Low" />
-                    </Picker>
-                    <TouchableHighlight style={styles.button} onPress={handleAddButtonClick}>
-                        <Text style={styles.buttonText}>Add</Text>
-                    </TouchableHighlight>
-                </View>
+            <View style={styles.inputView}>
+                <TextInput style={styles.input} value={todoName} onChangeText={(text) => setTodoName(text)} placeholder='Enter to-do' placeholderTextColor={'#AAAAAA'} />
+                <Picker
+                    style={styles.picker}
+                    selectedValue={selectedPriority}
+                    pickerStyleType={styles.picker}
+                    onValueChange={(itemValue) =>
+                        setSelectedPriority(itemValue)
+                    }>
+                    <Picker.Item label="High" value="High" />
+                    <Picker.Item label="Medium" value="Medium" />
+                    <Picker.Item label="Low" value="Low" />
+                </Picker>
+                <TouchableHighlight style={styles.button} onPress={handleAddButtonClick}>
+                    <Text style={styles.buttonText}>Add</Text>
+                </TouchableHighlight>
+            </View>
         </>
     )
 }
